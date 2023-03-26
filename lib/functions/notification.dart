@@ -19,3 +19,14 @@
 //     ),
 //   );
 // }
+
+// void showNotification(setState, text, isErr) {
+//   currentError = text;
+//   isError = isErr;
+//   isShowNotification = true;
+//   setState(() {});
+//   Future.delayed(Duration(seconds: 3), (() {
+//     isShowNotification = false;
+//     setState(() {});
+//   }));
+// }
