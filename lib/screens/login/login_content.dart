@@ -1,3 +1,4 @@
+import 'package:capstone_project/screens/signup/signup_screen.dart';
 import 'package:capstone_project/styles/colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -21,7 +22,7 @@ class _LoginContentState extends State<LoginContent> {
         backgroundColor: backgroundColor,
         body: SafeArea(
             child:
-                Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+                Padding(padding: const EdgeInsets.only(left: 30, right: 30), child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
           AutofillGroup(
             child: Column(
               children: [
@@ -57,12 +58,14 @@ class _LoginContentState extends State<LoginContent> {
                       )),
                 ),
                 Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 30),
+                  padding: const EdgeInsets.all(30),
                   child: Row(
                     children: [
                       Expanded(
                           child: GestureDetector(
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.pushNamed(context, SignUpScreen.routeName);
+                        },
                         child: Container(
                           color: kWhiteColor,
                           alignment: Alignment.center,
@@ -110,6 +113,6 @@ class _LoginContentState extends State<LoginContent> {
               ],
             ),
           ),
-        ])));
+        ]))));
   }
 }
