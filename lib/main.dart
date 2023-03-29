@@ -1,8 +1,11 @@
 import 'package:capstone_project/screens/login/login_screen.dart';
 import 'package:capstone_project/utils/routes.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(const MyApp());
 }
 

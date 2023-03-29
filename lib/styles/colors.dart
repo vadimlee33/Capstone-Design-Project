@@ -11,6 +11,8 @@ const kWhiteColor = Colors.white;
 
 const kGreenColor = Color.fromRGBO(221, 229, 182, 1);
 
+const kGreenColor_2 = Colors.green;
+
 const kRedColor = Color.fromRGBO(239, 83, 79, 1);
 
 const kBrownColor = Color.fromRGBO(169, 132, 103, 1);

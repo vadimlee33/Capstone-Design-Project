@@ -1,5 +1,7 @@
+import 'package:capstone_project/functions/auth.dart';
 import 'package:capstone_project/screens/login/login_screen.dart';
 import 'package:capstone_project/styles/colors.dart';
+import 'package:elegant_notification/elegant_notification.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -160,7 +162,69 @@ class _SignUpContentState extends State<SignUpContent> {
                           )),
                       const SizedBox(height: 20),
                       ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            if (_usernameController.text == '') {
+                              print('input username');
+                            } else {
+                              if (_emailController.text == '') {
+                                ElegantNotification.error(
+                                            showProgressIndicator: false,
+                                                  title: Text('Registration Error'),
+                                                  description: Text(
+                                                      "No email"))
+                                              .show(context);
+                              } else {
+                                if (_passwordController.text == '') {
+                                  ElegantNotification.error(
+                                            showProgressIndicator: false,
+                                                  title: Text('Registration Error'),
+                                                  description: Text(
+                                                      "No Password"))
+                                              .show(context);
+                                } else {
+                                  if (_passwordConfirmController.text == '') {
+                                    ElegantNotification.error(
+                                            showProgressIndicator: false,
+                                                  title: Text('Registration Error'),
+                                                  description: Text(
+                                                      "Confirm password"))
+                                              .show(context);
+                                  } else {
+                                    if (_passwordController.text !=
+                                        _passwordConfirmController.text) {
+                                      ElegantNotification.error(
+                                            showProgressIndicator: false,
+                                                  title: Text('Registration Error'),
+                                                  description: Text(
+                                                      "Passwords do no match"))
+                                              .show(context);
+                                    } else {
+                                      AuthenticationModel()
+                                          .signUp(
+                                              email: _emailController.text, password: _passwordController.text)
+                                          .then((result) {
+                                        if (result == null) {
+                                          ElegantNotification.success(
+                                            showProgressIndicator: false,
+                                                  title: const Text("Success!"),
+                                                  description: Text(
+                                                      'Account was succesfully created'))
+                                              .show(context);
+                                        } else {
+                                          ElegantNotification.error(
+                                            showProgressIndicator: false,
+                                                  title: const Text("Registration Error"),
+                                                  description: Text(
+                                                      result))
+                                              .show(context);
+                                        }
+                                      });
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          },
                           style: ButtonStyle(
                               shadowColor:
                                   MaterialStateProperty.all<Color>(kGreenColor),
