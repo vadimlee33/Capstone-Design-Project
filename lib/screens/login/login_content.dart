@@ -1,4 +1,5 @@
 import 'package:capstone_project/functions/auth.dart';
+import 'package:capstone_project/screens/home/home_screen.dart';
 import 'package:capstone_project/screens/signup/signup_screen.dart';
 import 'package:capstone_project/styles/colors.dart';
 import 'package:elegant_notification/elegant_notification.dart';
@@ -126,31 +127,40 @@ class _LoginContentState extends State<LoginContent> {
                                   Expanded(
                                     child: ElevatedButton(
                                         onPressed: () {
-                                          AuthenticationModel()
-                                              .signIn(
-                                                  email: _emailController.text,
-                                                  password:
-                                                      _passwordController.text)
-                                              .then((result) {
-                                            if (result == null) {
-                                              ElegantNotification.success(
-                                                      showProgressIndicator:
-                                                          true,
-                                                      title: const Text(
-                                                          "Success!"),
-                                                      description: Text(
-                                                          'Logging in..'))
-                                                  .show(context);
-                                            } else {
-                                              ElegantNotification.error(
-                                                      showProgressIndicator:
-                                                          false,
-                                                      title: const Text(
-                                                          "Login Error"),
-                                                      description: Text(result))
-                                                  .show(context);
-                                            }
-                                          });
+                                          // AuthenticationModel()
+                                          //     .signIn(
+                                          //         email: _emailController.text,
+                                          //         password:
+                                          //             _passwordController.text)
+                                          //     .then((result) {
+                                          //   if (result == null) {
+                                          //     ElegantNotification.success(
+                                          //             showProgressIndicator:
+                                          //                 true,
+                                          //             title: const Text(
+                                          //                 "Success!"),
+                                          //             description: Text(
+                                          //                 'Logging in..'))
+                                          //         .show(context);
+                                          //   } else {
+                                          //     ElegantNotification.error(
+                                          //             showProgressIndicator:
+                                          //                 false,
+                                          //             title: const Text(
+                                          //                 "Login Error"),
+                                          //             description: Text(result))
+                                          //         .show(context);
+                                          //   }
+                                          // });
+
+                                          Navigator.push(
+                                              context,
+                                              PageTransition(
+                                                  duration: const Duration(
+                                                      milliseconds: 250),
+                                                  type: PageTransitionType
+                                                      .rightToLeft,
+                                                  child: const HomeScreen()));
                                         },
                                         style: ButtonStyle(
                                             shadowColor: MaterialStateProperty
