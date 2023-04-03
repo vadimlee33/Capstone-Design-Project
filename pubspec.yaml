@@ -41,6 +41,7 @@ dependencies:
   elegant_notification: ^1.8.1
   firebase_core: ^2.8.0
   persistent_bottom_nav_bar: ^5.0.2
+  face_camera: ^0.0.6
 
 dev_dependencies:
   flutter_test:

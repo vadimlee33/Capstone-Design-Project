@@ -8,6 +8,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
+import '../add/add_screen.dart';
+
 PersistentTabController _controller = PersistentTabController(initialIndex: 0);
 
 class HomeScreen extends StatelessWidget {
@@ -57,7 +59,7 @@ List<Widget> _buildScreens() {
   return const [
     HomeContent(),
     ProfileScreen(),
-    SignUpScreen(),
+    AddScreen(),
     SettingsScreen(),
     SettingsScreen()
   ];
@@ -68,13 +70,13 @@ List<PersistentBottomNavBarItem> _navBarsItems() {
     PersistentBottomNavBarItem(
       icon: Icon(CupertinoIcons.home),
       title: ("Home"),
-      activeColorPrimary: CupertinoColors.activeBlue,
+      activeColorPrimary: CupertinoColors.activeGreen,
       inactiveColorPrimary: CupertinoColors.systemGrey,
     ),
     PersistentBottomNavBarItem(
       icon: Icon(CupertinoIcons.person),
       title: ("Profile"),
-      activeColorPrimary: CupertinoColors.activeBlue,
+      activeColorPrimary: CupertinoColors.activeGreen,
       inactiveColorPrimary: CupertinoColors.systemGrey,
     ),
     PersistentBottomNavBarItem(
@@ -83,19 +85,19 @@ List<PersistentBottomNavBarItem> _navBarsItems() {
         color: kWhiteColor,
       ),
       title: ("Add"),
-      activeColorPrimary: CupertinoColors.activeBlue,
+      activeColorPrimary: CupertinoColors.activeGreen,
       inactiveColorPrimary: CupertinoColors.systemGrey,
     ),
     PersistentBottomNavBarItem(
       icon: Icon(CupertinoIcons.airplane),
       title: ("HZ"),
-      activeColorPrimary: CupertinoColors.activeBlue,
+      activeColorPrimary: CupertinoColors.activeGreen,
       inactiveColorPrimary: CupertinoColors.systemGrey,
     ),
     PersistentBottomNavBarItem(
       icon: Icon(CupertinoIcons.settings),
       title: ("Settings"),
-      activeColorPrimary: CupertinoColors.activeBlue,
+      activeColorPrimary: CupertinoColors.activeGreen,
       inactiveColorPrimary: CupertinoColors.systemGrey,
     ),
   ];
