@@ -21,6 +21,8 @@ class _AddContentState extends State<AddContent> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: SmartFaceCamera(
+      showFlashControl: false,
+      enableAudio: false,
       autoCapture: true,
       defaultCameraLens: CameraLens.front,
       message: 'Center your face in the square',
