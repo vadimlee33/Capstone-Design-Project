@@ -22,6 +22,7 @@ class _AddContentState extends State<AddContent> {
     return Scaffold(
         body: SmartFaceCamera(
       showFlashControl: false,
+      showCameraLensControl: false,
       enableAudio: false,
       autoCapture: true,
       defaultCameraLens: CameraLens.front,
