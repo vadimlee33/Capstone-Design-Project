@@ -18,11 +18,18 @@ class _ProfileContentState extends State<ProfileContent> {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: backgroundColor,
-        body: SafeArea(
-            child: Padding(
-                padding: const EdgeInsets.only(left: 30, right: 30),
-                child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [Center(child: Text('My Profile Page'))]))));
+        body: Container(
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage('assets/images/background_2.png'),
+                fit: BoxFit.cover,
+              ),
+            ),
+            child: SafeArea(
+                child: Padding(
+                    padding: const EdgeInsets.only(left: 30, right: 30),
+                    child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [Center(child: Text('My Profile Page'))])))));
   }
 }

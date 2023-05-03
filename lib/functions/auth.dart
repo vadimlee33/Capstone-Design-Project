@@ -27,7 +27,6 @@ class AuthenticationModel {
 
   Future signOut() async {
     await _auth.signOut();
-
     print('signed out');
   }
 }
