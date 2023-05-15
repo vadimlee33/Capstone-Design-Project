@@ -20,6 +20,10 @@ class _HomeContentState extends State<HomeContent> {
   DateTime _focusedDay = DateTime.now();
   DateTime? _selectedDay;
 
+  bool hasNote = false;
+
+  //Map<DateTime, String> diaryEntries = {};
+
   final kFirstDay = DateTime(2021);
   final kLastDay = DateTime(2025);
 
@@ -32,6 +36,7 @@ class _HomeContentState extends State<HomeContent> {
   void _saveDiaryEntry() {
     setState(() {
       diaryEntries[_selectedDay!] = _diaryEntryController.text;
+      _diaryEntryController.clear();
     });
   }
 
@@ -52,10 +57,6 @@ class _HomeContentState extends State<HomeContent> {
         _calendarFormat = format;
       });
     }
-  }
-
-  List<String> _getDiaryEntryForCalendar(DateTime day) {
-    return [diaryEntries[day] ?? ''];
   }
 
   @override
@@ -90,11 +91,22 @@ class _HomeContentState extends State<HomeContent> {
                             },
                             onDaySelected: (selectedDay, focusedDay) {
                               if (!isSameDay(_selectedDay, selectedDay)) {
-                                // Call `setState()` when updating the selected day
                                 setState(() {
                                   _selectedDay = selectedDay;
                                   _focusedDay = focusedDay;
                                 });
+
+                                print(diaryEntries);
+
+                                if (_getDiaryEntryForDay(_focusedDay) == '') {
+                                  setState(() {
+                                    hasNote = false;
+                                  });
+                                } else {
+                                  setState(() {
+                                    hasNote = true;
+                                  });
+                                }
                               }
                             },
                             onFormatChanged: (format) {
@@ -111,24 +123,26 @@ class _HomeContentState extends State<HomeContent> {
                             },
                           )),
                           SizedBox(height: 16),
-                          TextField(
-                            controller: _diaryEntryController,
-                            decoration: InputDecoration(
-                              hintText: 'Write your diary entry here...',
-                            ),
-                          ),
-                          ElevatedButton(
-                            onPressed: _saveDiaryEntry,
-                            child: Text('Save'),
-                          ),
+                          !hasNote
+                              ? TextField(
+                                  controller: _diaryEntryController,
+                                  decoration: InputDecoration(
+                                    hintText: 'Write your diary entry here...',
+                                  ),
+                                )
+                              : Container(),
+                          !hasNote
+                              ? ElevatedButton(
+                                  onPressed: _saveDiaryEntry,
+                                  child: Text('Save'),
+                                )
+                              : Container(),
                           SizedBox(height: 16),
                           Expanded(
                             child: SingleChildScrollView(
                               child: Padding(
                                 padding: EdgeInsets.all(16),
-                                child: Text(
-                                  _getDiaryEntryForDay(_focusedDay!),
-                                ),
+                                child: Text(_getDiaryEntryForDay(_focusedDay)),
                               ),
                             ),
                           )
