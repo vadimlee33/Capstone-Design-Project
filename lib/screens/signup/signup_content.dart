@@ -168,54 +168,68 @@ class _SignUpContentState extends State<SignUpContent> {
                             } else {
                               if (_emailController.text == '') {
                                 ElegantNotification.error(
-                                            showProgressIndicator: false,
-                                                  title: Text('Registration Error'),
-                                                  description: Text(
-                                                      "No email"))
-                                              .show(context);
+                                        showProgressIndicator: false,
+                                        title: Text('Registration Error'),
+                                        description: Text("No email"))
+                                    .show(context);
                               } else {
                                 if (_passwordController.text == '') {
                                   ElegantNotification.error(
-                                            showProgressIndicator: false,
-                                                  title: Text('Registration Error'),
-                                                  description: Text(
-                                                      "No Password"))
-                                              .show(context);
+                                          showProgressIndicator: false,
+                                          title: Text('Registration Error'),
+                                          description: Text("No Password"))
+                                      .show(context);
                                 } else {
                                   if (_passwordConfirmController.text == '') {
                                     ElegantNotification.error(
                                             showProgressIndicator: false,
-                                                  title: Text('Registration Error'),
-                                                  description: Text(
-                                                      "Confirm password"))
-                                              .show(context);
+                                            title: Text('Registration Error'),
+                                            description:
+                                                Text("Confirm password"))
+                                        .show(context);
                                   } else {
                                     if (_passwordController.text !=
                                         _passwordConfirmController.text) {
                                       ElegantNotification.error(
-                                            showProgressIndicator: false,
-                                                  title: Text('Registration Error'),
-                                                  description: Text(
-                                                      "Passwords do no match"))
-                                              .show(context);
+                                              showProgressIndicator: false,
+                                              title: Text('Registration Error'),
+                                              description:
+                                                  Text("Passwords do no match"))
+                                          .show(context);
                                     } else {
                                       AuthenticationModel()
                                           .signUp(
-                                              email: _emailController.text, password: _passwordController.text)
+                                              username:
+                                                  _usernameController.text,
+                                              email: _emailController.text,
+                                              password:
+                                                  _passwordController.text)
                                           .then((result) {
                                         if (result == null) {
                                           ElegantNotification.success(
-                                            showProgressIndicator: false,
+                                                  showProgressIndicator: false,
                                                   title: const Text("Success!"),
                                                   description: Text(
                                                       'Account was succesfully created'))
                                               .show(context);
+                                          _usernameController.clear();
+                                          _emailController.clear();
+                                          _passwordConfirmController.clear();
+                                          _passwordController.clear();
+                                          Navigator.push(
+                                              context,
+                                              PageTransition(
+                                                  duration: const Duration(
+                                                      milliseconds: 250),
+                                                  type: PageTransitionType
+                                                      .rightToLeft,
+                                                  child: const LoginScreen()));
                                         } else {
                                           ElegantNotification.error(
-                                            showProgressIndicator: false,
-                                                  title: const Text("Registration Error"),
-                                                  description: Text(
-                                                      result))
+                                                  showProgressIndicator: false,
+                                                  title: const Text(
+                                                      "Registration Error"),
+                                                  description: Text(result))
                                               .show(context);
                                         }
                                       });

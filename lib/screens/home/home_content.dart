@@ -26,12 +26,23 @@ class _HomeContentState extends State<HomeContent> {
   TextEditingController _diaryEntryController = TextEditingController();
 
   String _getDiaryEntryForDay(DateTime day) {
-    return diaryEntries[day] ?? '';
+    int epochToday = dateTimeToEpochString(todayDate);
+    print('Today: $todayDate');
+
+    int epochTime = dateTimeToEpochString(day);
+
+    if (diaryEntries.containsKey(epochTime)) {
+      String text = diaryEntries[epochTime]!['text'];
+      return text != null ? text : 'There are no notes for that particular day';
+    } else {
+      return 'There are no notes for that particular day';
+    }
   }
 
   void _saveDiaryEntry() {
     setState(() {
-      diaryEntries[_selectedDay!] = _diaryEntryController.text;
+      int epochTimeToSave = dateTimeToEpochString(_selectedDay!);
+      diaryEntries[epochTimeToSave]!['text'] = _diaryEntryController.text;
     });
   }
 
@@ -55,7 +66,7 @@ class _HomeContentState extends State<HomeContent> {
   }
 
   List<String> _getDiaryEntryForCalendar(DateTime day) {
-    return [diaryEntries[day] ?? ''];
+    return [diaryEntries[day]!['text'] ?? ''];
   }
 
   @override
