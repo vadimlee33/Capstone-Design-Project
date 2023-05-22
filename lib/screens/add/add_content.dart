@@ -19,6 +19,21 @@ class _AddContentState extends State<AddContent> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-       );
+      body: Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('assets/images/background_1.png'),
+            fit: BoxFit.cover,
+          ),
+        ),
+        child: SafeArea(
+            child: Padding(
+                padding: EdgeInsets.only(left: 30, right: 30, top: 30),
+                child: Center(
+                    child: Column(
+                  children: [],
+                )))),
+      ),
+    );
   }
 }

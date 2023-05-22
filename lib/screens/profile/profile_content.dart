@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:page_transition/page_transition.dart';
 
+import '../../globals.dart/global.dart';
+
 class ProfileContent extends StatefulWidget {
   const ProfileContent({super.key});
 
@@ -27,9 +29,26 @@ class _ProfileContentState extends State<ProfileContent> {
             ),
             child: SafeArea(
                 child: Padding(
-                    padding: const EdgeInsets.only(left: 30, right: 30),
-                    child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [Center(child: Text('My Profile Page'))])))));
+                    padding:
+                        const EdgeInsets.only(left: 30, right: 30, top: 30),
+                    child: Center(
+                      child: Column(children: [
+                        Row(
+                          children: [
+                            Image.asset('assets/images/profile_icon.jpg',
+                                width: 80, height: 80, color: Colors.black),
+                            const SizedBox(width: 30),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text('Username: ${user.username}'),
+                                const SizedBox(height: 5),
+                                Text('E-mail: ${user.email}')
+                              ],
+                            )
+                          ],
+                        )
+                      ]),
+                    )))));
   }
 }

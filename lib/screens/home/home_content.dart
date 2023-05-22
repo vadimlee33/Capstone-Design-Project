@@ -30,24 +30,28 @@ class _HomeContentState extends State<HomeContent> {
   TextEditingController _diaryEntryController = TextEditingController();
 
   String _getDiaryEntryForDay(DateTime day) {
-    int epochToday = dateTimeToEpochString(todayDate);
-    print('Today: $todayDate');
-
-    int epochTime = dateTimeToEpochString(day);
+    String epochTime = dateTimeToEpochString(day);
 
     if (diaryEntries.containsKey(epochTime)) {
       String text = diaryEntries[epochTime]!['text'];
-      return text != null ? text : 'There are no notes for that particular day';
+      return text != null ? text : '';
     } else {
-      return 'There are no notes for that particular day';
+      return '';
     }
   }
 
   void _saveDiaryEntry() {
     setState(() {
-      int epochTimeToSave = dateTimeToEpochString(_selectedDay!);
-      diaryEntries[epochTimeToSave]!['text'] = _diaryEntryController.text;
+      String epochTimeToSave = dateTimeToEpochString(_selectedDay!);
+      Map<String, dynamic> newEntry = {
+        "text": _diaryEntryController.text,
+        "emotion": "Happy",
+      };
+      diaryEntries[epochTimeToSave] = newEntry;
       _diaryEntryController.clear();
+      user.diaryEntries = diaryEntries;
+      updateData();
+      hasNote = true;
     });
   }
 

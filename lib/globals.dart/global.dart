@@ -6,49 +6,22 @@ String userID = "";
 
 late User user;
 
-Map<int, Map<String, dynamic>> diaryEntries = {
-  1682985600000: {
-    "text": "Today I went for a walk in the park...",
-    "emotion": "Neutral",
-  },
-  1683763200000: {
-    "text": "Had a great time at the beach with friends!",
-    "emotion": "Happy",
-  },
-  1684281600000: {
-    "text": "Went to the movies and watched a great film...",
-    "emotion": "Excited",
-  },
-};
+Map<String, dynamic> diaryEntries = {};
 
-Map<String, Map<String, dynamic>> diaryEntriesTest = {
-  "1682985600000": {
-    "text": "Today I went for a walk in the park...",
-    "emotion": "Neutral",
-  },
-  "1683763200000": {
-    "text": "Had a great time at the beach with friends!",
-    "emotion": "Happy",
-  },
-  "1684281600000": {
-    "text": "Went to the movies and watched a great film...",
-    "emotion": "Excited",
-  },
-};
+Map<String, dynamic> diaryEntriesTest = {};
 
 bool isToday = false;
 
-DateTime todayDate = DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
+DateTime todayDate =
+    DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
 
-
-int dateTimeToEpochString(DateTime dateTime) {
+String dateTimeToEpochString(DateTime dateTime) {
   int epochTime = dateTime.millisecondsSinceEpoch;
   print(epochTime.toString());
-  return epochTime;
+  return epochTime.toString();
 }
 
 void registerUserInFirestore(String id, String username, String email) {
-  Map<int, Map<String, dynamic>> diaries = {};
   Map<String, dynamic> documentData = {
     'id': id,
     'username': username,
@@ -68,14 +41,33 @@ void getUserData() async {
     Map<String, dynamic> data = documentSnapshot.data() as Map<String, dynamic>;
 
     if (data.containsKey('username')) {
+      diaryEntries = data['diaryEntries'];
       String username = data['username'];
-      print(username);
+      user = User(
+          diaryEntries: data['diaryEntries'],
+          username: data['username'],
+          email: data['email'],
+          id: data['id']);
+      print('Logged in with user: $username');
     } else {
       print('Username not found');
     }
   } else {
     print('Document does not exist');
   }
+}
+
+void updateData() {
+  FirebaseFirestore.instance.collection('users').doc(userID).update({
+    'diaryEntries': user.diaryEntries,
+    'email': user.email,
+    'id': user.id,
+    'username': user.username
+  }).then((_) {
+    print('Document updated successfully.');
+  }).catchError((error) {
+    print('Failed to update document: $error');
+  });
 }
 
 void addNoteToDB(String userId, String note, String emotion) {
