@@ -7,6 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:page_transition/page_transition.dart';
 
+import '../../globals.dart/global.dart';
+
 class SettingsContent extends StatefulWidget {
   const SettingsContent({super.key});
 
@@ -28,11 +30,11 @@ class _SettingsContentState extends State<SettingsContent> {
                       Center(
                         child: ElevatedButton(
                           onPressed: () {
-                            Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => LoginScreen()),
-                            );
+                            // Navigator.pushReplacement(
+                            //   context,
+                            //   MaterialPageRoute(
+                            //       builder: (context) => LoginScreen()),
+                            // );
                           },
                           child: Text('Log out'),
                         ),

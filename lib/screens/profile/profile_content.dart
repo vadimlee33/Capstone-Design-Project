@@ -1,11 +1,12 @@
 import 'package:capstone_project/functions/auth.dart';
 import 'package:capstone_project/styles/colors.dart';
+import 'package:d_chart/d_chart.dart';
 import 'package:elegant_notification/elegant_notification.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:page_transition/page_transition.dart';
-
+import 'package:intl/intl.dart';
 import '../../globals.dart/global.dart';
 
 class ProfileContent extends StatefulWidget {
@@ -17,7 +18,33 @@ class ProfileContent extends StatefulWidget {
 
 class _ProfileContentState extends State<ProfileContent> {
   @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      // Rebuild the widgets here
+      setState(() {});
+    });
+  }
+
   Widget build(BuildContext context) {
+    final _today = DateTime.now();
+    final _lastMonth = DateTime(_today.year, _today.month - 1, _today.day);
+
+    final _formattedStartDate = DateFormat('yyyy.MM.dd').format(_lastMonth);
+    final _formattedEndDate = DateFormat('yyyy.MM.dd').format(_today);
+
+    final _dateRange =
+        'Last month pie chart ($_formattedStartDate - $_formattedEndDate)';
+    final emotionCount = countEmotions(diaryEntries);
+    emotionCount.forEach((emotion, count) {
+      print('$emotion: $count');
+    });
+    final pieChartData = emotionCount.entries.map((entry) {
+      final emotion = entry.key;
+      final count = entry.value;
+      return {'domain': emotion, 'measure': count};
+    }).toList();
+
     return Scaffold(
         backgroundColor: backgroundColor,
         body: Container(
@@ -47,7 +74,19 @@ class _ProfileContentState extends State<ProfileContent> {
                               ],
                             )
                           ],
-                        )
+                        ),
+                        const SizedBox(height: 30),
+                        Text(_dateRange,
+                            style: TextStyle(
+                                fontSize: 14, fontWeight: FontWeight.bold)),
+                        Expanded(
+                            child: DChartPie(
+                          data: pieChartData,
+                          pieLabel: (pieChartData, index) =>
+                              pieChartData['domain'],
+                          fillColor: (pieChartData, index) =>
+                              emotionColors[pieChartData['domain']],
+                        )),
                       ]),
                     )))));
   }

@@ -22,6 +22,8 @@ class _HomeContentState extends State<HomeContent> {
 
   bool hasNote = false;
 
+  bool afterToday = false;
+
   //Map<DateTime, String> diaryEntries = {};
 
   final kFirstDay = DateTime(2021);
@@ -40,19 +42,37 @@ class _HomeContentState extends State<HomeContent> {
     }
   }
 
-  void _saveDiaryEntry() {
-    setState(() {
+  String _getEmotionForDay(DateTime day) {
+    String epochTime = dateTimeToEpochString(day);
+
+    if (diaryEntries.containsKey(epochTime)) {
+      String text = diaryEntries[epochTime]!['emotion'];
+      return text != null ? text : '';
+    } else {
+      return '';
+    }
+  }
+
+  void _saveDiaryEntry() async {
+    if (_diaryEntryController.text != '') {
       String epochTimeToSave = dateTimeToEpochString(_selectedDay!);
+      final _result = await scoreText(_diaryEntryController.text);
+      final _predictedEmotion = _result['predicted_emotion'];
       Map<String, dynamic> newEntry = {
         "text": _diaryEntryController.text,
-        "emotion": "Happy",
+        "emotion": _predictedEmotion,
       };
-      diaryEntries[epochTimeToSave] = newEntry;
-      _diaryEntryController.clear();
-      user.diaryEntries = diaryEntries;
-      updateData();
-      hasNote = true;
-    });
+
+      setState(() {
+        diaryEntries[epochTimeToSave] = newEntry;
+        _diaryEntryController.clear();
+        user.diaryEntries = diaryEntries;
+        updateData();
+        hasNote = true;
+      });
+    } else {
+      // Handle the case when _diaryEntryController.text is empty
+    }
   }
 
   void _onDaySelected(selectedDay, focusedDay) {
@@ -142,29 +162,37 @@ class _HomeContentState extends State<HomeContent> {
                             },
                           )),
                           SizedBox(height: 16),
-                          !hasNote
-                              ? TextField(
-                                  controller: _diaryEntryController,
-                                  decoration: InputDecoration(
-                                    hintText: 'Write your diary entry here...',
-                                  ),
-                                )
-                              : Container(),
-                          !hasNote
-                              ? ElevatedButton(
-                                  onPressed: _saveDiaryEntry,
-                                  child: Text('Save'),
-                                )
-                              : Container(),
+                          Visibility(
+                              visible: _focusedDay.isBefore(tomorrowDate) &&
+                                  !hasNote,
+                              child: TextField(
+                                controller: _diaryEntryController,
+                                decoration: InputDecoration(
+                                  hintText: 'Write your diary entry here...',
+                                ),
+                              )),
+                          Visibility(
+                              visible: _focusedDay.isBefore(tomorrowDate) &&
+                                  !hasNote,
+                              child: ElevatedButton(
+                                onPressed: _saveDiaryEntry,
+                                child: Text('Save'),
+                              )),
                           SizedBox(height: 16),
-                          Expanded(
-                            child: SingleChildScrollView(
-                              child: Padding(
-                                padding: EdgeInsets.all(16),
-                                child: Text(_getDiaryEntryForDay(_focusedDay)),
-                              ),
-                            ),
-                          )
+                          Visibility(
+                              visible: _getDiaryEntryForDay(_focusedDay) != '',
+                              child: Expanded(
+                                child: SingleChildScrollView(
+                                  child: Padding(
+                                    padding: EdgeInsets.all(16),
+                                    child: Column(children: [
+                                      Text(_getDiaryEntryForDay(_focusedDay)),
+                                      Text(
+                                          'Emotion: ${_getEmotionForDay(_focusedDay)}')
+                                    ]),
+                                  ),
+                                ),
+                              ))
                         ])))));
   }
 }

@@ -1,24 +1,52 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'dart:convert';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 import '../models/user.dart';
+
+const String serverIP = "10.0.2.2";
 
 String userID = "";
 
 late User user;
 
+final emotionColors = {
+  'sadness': Colors.grey,
+  'joy': Colors.yellow,
+  'love': Colors.pink,
+  'anger': Colors.orange,
+  'fear': Colors.blue,
+  'surprise': Colors.purple
+};
+
 Map<String, dynamic> diaryEntries = {};
 
 Map<String, dynamic> diaryEntriesTest = {};
 
-bool isToday = false;
-
 DateTime todayDate =
     DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
+
+DateTime tomorrowDate =
+    DateTime(todayDate.year, todayDate.month, todayDate.day + 1);
 
 String dateTimeToEpochString(DateTime dateTime) {
   int epochTime = dateTime.millisecondsSinceEpoch;
   print(epochTime.toString());
   return epochTime.toString();
+}
+
+Map<String, int> countEmotions(Map<String, dynamic> entries) {
+  final Map<String, int> emotionCount = {};
+
+  entries.forEach((_, entry) {
+    final emotion = entry['emotion'] as String?;
+    if (emotion != null) {
+      emotionCount[emotion] = (emotionCount[emotion] ?? 0) + 1;
+    }
+  });
+
+  return emotionCount;
 }
 
 void registerUserInFirestore(String id, String username, String email) {
@@ -70,12 +98,18 @@ void updateData() {
   });
 }
 
-void addNoteToDB(String userId, String note, String emotion) {
-  Map<String, dynamic> documentData = {
-    'id': userId,
-    'note': note,
-    'emotion': emotion
-  };
+Future<Map<String, dynamic>> scoreText(String text) async {
+  final url = Uri.parse('http://$serverIP:8000/score_text');
+  final response = await http.post(
+    url,
+    body: json.encode({"text": text}),
+    headers: {'Content-Type': 'application/json'},
+  );
 
-  FirebaseFirestore.instance.collection('notes').doc(userId).set(documentData);
+  if (response.statusCode == 200) {
+    final data = json.decode(response.body);
+    return data;
+  } else {
+    throw Exception('Failed to score text: ${response.statusCode}');
+  }
 }
