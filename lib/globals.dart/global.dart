@@ -11,13 +11,15 @@ String userID = "";
 
 late User user;
 
+const primaryColor = Color.fromARGB(244, 85, 244, 146);
+
 final emotionColors = {
-  'sadness': Colors.grey,
-  'joy': Colors.yellow,
-  'love': Colors.pink,
-  'anger': Colors.orange,
-  'fear': Colors.blue,
-  'surprise': Colors.purple
+  'sadness': const Color(0xFFA9DEF9),
+  'joy': Color.fromARGB(241, 237, 208, 17),
+  'love': Color(0xFFFF99C8),
+  'anger': Color(0xFFF08080),
+  'fear': Color(0xFFD0F4DE),
+  'surprise': Color(0xFFE4C1F9)
 };
 
 Map<String, dynamic> diaryEntries = {};

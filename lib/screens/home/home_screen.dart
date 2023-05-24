@@ -50,7 +50,7 @@ class HomeScreen extends StatelessWidget {
         duration: Duration(milliseconds: 200),
       ),
       navBarStyle:
-          NavBarStyle.style16, // Choose the nav bar style with this property.
+          NavBarStyle.style9, // Choose the nav bar style with this property.
     );
   }
 }
@@ -59,7 +59,7 @@ List<Widget> _buildScreens() {
   return const [
     HomeContent(),
     ProfileScreen(),
-    AddScreen(),
+    //AddScreen(),
     SettingsScreen(),
     SettingsScreen()
   ];
@@ -79,15 +79,14 @@ List<PersistentBottomNavBarItem> _navBarsItems() {
       activeColorPrimary: CupertinoColors.activeGreen,
       inactiveColorPrimary: CupertinoColors.systemGrey,
     ),
-    PersistentBottomNavBarItem(
-      icon: Icon(
-        CupertinoIcons.add,
-        color: kWhiteColor,
-      ),
-      //title: ("Add"),
-      activeColorPrimary: CupertinoColors.activeBlue,
-      inactiveColorPrimary: CupertinoColors.systemGrey,
-    ),
+    // PersistentBottomNavBarItem(
+    //   icon: Icon(
+    //     CupertinoIcons.add,
+    //   ),
+    //   title: ("Add"),
+    //   activeColorPrimary: CupertinoColors.activeGreen,
+    //   inactiveColorPrimary: CupertinoColors.systemGrey,
+    // ),
     PersistentBottomNavBarItem(
       icon: Icon(CupertinoIcons.heart),
       title: ("Healing"),

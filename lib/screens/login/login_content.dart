@@ -41,12 +41,17 @@ class _LoginContentState extends State<LoginContent> {
                               controller: _emailController,
                               maxLines: 1,
                               decoration: InputDecoration(
-                                  labelText: 'Enter Email',
-                                  border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(20.0),
-                                  ),
-                                  filled: true,
-                                  fillColor: kGreenColor),
+                                // focusedBorder: OutlineInputBorder(
+                                //   borderRadius: BorderRadius.circular(20.0),
+                                //   borderSide: BorderSide(color: kBrownColor),
+                                // ),
+                                labelText: 'Enter Email',
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(20.0),
+                                ),
+                                filled: true,
+                                fillColor: kGreenColor,
+                              ),
                             ),
                             const SizedBox(height: 20),
                             TextFormField(
