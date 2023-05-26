@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
-        primarySwatch: MaterialColor(
+        primarySwatch: const MaterialColor(
           0xFFA98467,
           <int, Color>{
             50: Color(0xFFA98467),
@@ -40,3 +40,4 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+// Calendar: Selected and focused colors
