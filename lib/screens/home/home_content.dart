@@ -120,6 +120,19 @@ class _HomeContentState extends State<HomeContent> {
                             lastDay: kLastDay,
                             focusedDay: _focusedDay,
                             calendarFormat: _calendarFormat,
+                            calendarStyle: CalendarStyle(
+                              selectedDecoration: BoxDecoration(
+                                color:
+                                    kGreenColor_2, // Set the selected color here
+                                shape: BoxShape.circle,
+                              ),
+                              todayDecoration: BoxDecoration(
+                                color: kBrownColor, // Set the active color here
+                                shape: BoxShape.circle,
+                              ),
+                              selectedTextStyle: TextStyle(color: Colors.white),
+                              todayTextStyle: TextStyle(color: Colors.white),
+                            ),
                             selectedDayPredicate: (day) {
                               // Use `selectedDayPredicate` to determine which day is currently selected.
                               // If this returns true, then `day` will be marked as selected.
@@ -184,15 +197,67 @@ class _HomeContentState extends State<HomeContent> {
                               child: Expanded(
                                 child: SingleChildScrollView(
                                   child: Padding(
-                                    padding: EdgeInsets.all(16),
-                                    child: Column(children: [
-                                      Text(_getDiaryEntryForDay(_focusedDay)),
-                                      Text(
-                                          'Emotion: ${_getEmotionForDay(_focusedDay)}')
-                                    ]),
-                                  ),
+                                      padding: EdgeInsets.all(16),
+                                      child: Column(children: [
+                                        const Text(
+                                            "Your feelings for that day:",
+                                            style: TextStyle(
+                                                fontFamily: 'Inter',
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.bold,
+                                                color: Color(0xFF6C584C))),
+                                        const SizedBox(height: 10),
+                                        Container(
+                                            padding: const EdgeInsets.symmetric(
+                                                horizontal: 20, vertical: 10),
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(20.0),
+                                            ),
+                                            child: Column(children: [
+                                              Text(
+                                                _getDiaryEntryForDay(
+                                                    _focusedDay),
+                                                style: TextStyle(
+                                                    fontFamily: 'Inter',
+                                                    fontSize: 14,
+                                                    fontWeight: FontWeight.bold,
+                                                    color: Color(0xFF6C584C)),
+                                              ),
+                                              const SizedBox(height: 20),
+                                              Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.end,
+                                                  children: [
+                                                    EmotionWidget(
+                                                        emotion:
+                                                            _getEmotionForDay(
+                                                                _focusedDay))
+                                                  ]),
+                                            ])),
+                                      ])),
                                 ),
                               ))
                         ])))));
+  }
+}
+
+class EmotionWidget extends StatelessWidget {
+  final String emotion;
+  const EmotionWidget({Key? key, required this.emotion}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final backgroundColor = emotionColors[emotion.toLowerCase()] ?? Colors.blue;
+    return Container(
+      padding: const EdgeInsets.all(15),
+      decoration: BoxDecoration(
+          color: backgroundColor, borderRadius: BorderRadius.circular(60.0)),
+      child: Text(emotion,
+          style: TextStyle(
+              fontFamily: 'Inter',
+              fontWeight: FontWeight.bold,
+              color: Color(0xFF6C584C))),
+    );
   }
 }
