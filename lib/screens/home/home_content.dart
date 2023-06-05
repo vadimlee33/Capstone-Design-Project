@@ -29,6 +29,8 @@ class _HomeContentState extends State<HomeContent> {
   final kFirstDay = DateTime(2021);
   final kLastDay = DateTime(2025);
 
+  List<String> selectedSongs = [];
+
   TextEditingController _diaryEntryController = TextEditingController();
 
   String _getDiaryEntryForDay(DateTime day) {
@@ -232,8 +234,134 @@ class _HomeContentState extends State<HomeContent> {
                                                     EmotionWidget(
                                                         emotion:
                                                             _getEmotionForDay(
-                                                                _focusedDay))
+                                                                _focusedDay)),
                                                   ]),
+                                              const SizedBox(height: 50),
+                                              InkWell(
+                                                onTap: () {
+                                                  final String currentEmotion =
+                                                      _getEmotionForDay(
+                                                          _focusedDay);
+
+                                                  List<String> shuffledList;
+
+                                                  if (currentEmotion ==
+                                                      'sadness') {
+                                                    shuffledList = List.from(
+                                                        sadnessSongsList)
+                                                      ..shuffle();
+                                                  } else if (currentEmotion ==
+                                                      'joy') {
+                                                    shuffledList =
+                                                        List.from(joySongsList)
+                                                          ..shuffle();
+                                                  } else if (currentEmotion ==
+                                                      'love') {
+                                                    shuffledList =
+                                                        List.from(loveSongsList)
+                                                          ..shuffle();
+                                                  } else if (currentEmotion ==
+                                                      'anger') {
+                                                    shuffledList = List.from(
+                                                        angerSongsList)
+                                                      ..shuffle();
+                                                  } else if (currentEmotion ==
+                                                      'fear') {
+                                                    shuffledList =
+                                                        List.from(fearSongsList)
+                                                          ..shuffle();
+                                                  } else {
+                                                    shuffledList = List.from(
+                                                        surprisedSongsList)
+                                                      ..shuffle();
+                                                  }
+
+                                                  selectedSongs = shuffledList
+                                                      .take(3)
+                                                      .toList();
+
+                                                  showDialog(
+                                                    context: context,
+                                                    builder:
+                                                        (BuildContext context) {
+                                                      return AlertDialog(
+                                                        content: Container(
+                                                            padding:
+                                                                EdgeInsets.only(
+                                                                    top: 30),
+                                                            height: 140,
+                                                            child: Column(
+                                                                children: [
+                                                                  Center(
+                                                                      child: Text(
+                                                                          shuffledList[
+                                                                              0],
+                                                                          textAlign: TextAlign
+                                                                              .center,
+                                                                          style: TextStyle(
+                                                                              fontFamily: 'Inter',
+                                                                              fontSize: 16,
+                                                                              fontWeight: FontWeight.bold,
+                                                                              color: Color(0xFF6C584C)))),
+                                                                  const Spacer(),
+                                                                  Center(
+                                                                      child: Text(
+                                                                          shuffledList[
+                                                                              1],
+                                                                          textAlign: TextAlign
+                                                                              .center,
+                                                                          style: TextStyle(
+                                                                              fontFamily: 'Inter',
+                                                                              fontSize: 16,
+                                                                              fontWeight: FontWeight.bold,
+                                                                              color: Color(0xFF6C584C)))),
+                                                                  const Spacer(),
+                                                                  Center(
+                                                                      child: Text(
+                                                                          shuffledList[
+                                                                              2],
+                                                                          textAlign: TextAlign
+                                                                              .center,
+                                                                          style: TextStyle(
+                                                                              fontFamily: 'Inter',
+                                                                              fontSize: 16,
+                                                                              fontWeight: FontWeight.bold,
+                                                                              color: Color(0xFF6C584C)))),
+                                                                ])),
+                                                        actions: [
+                                                          TextButton(
+                                                            child: Text('Ok'),
+                                                            onPressed: () {
+                                                              Navigator.of(
+                                                                      context)
+                                                                  .pop();
+                                                            },
+                                                          ),
+                                                        ],
+                                                      );
+                                                    },
+                                                  );
+                                                },
+                                                child: Container(
+                                                  padding: EdgeInsets.symmetric(
+                                                      horizontal: 30,
+                                                      vertical: 10),
+                                                  decoration: BoxDecoration(
+                                                    color: kBrownColor,
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            10), // Set the background color to blue
+                                                  ),
+                                                  child: Text(
+                                                    'Get music for that day',
+                                                    style: TextStyle(
+                                                        fontFamily: 'Inter',
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        color: Colors.white),
+                                                  ),
+                                                ),
+                                              )
                                             ])),
                                       ])),
                                 ),
