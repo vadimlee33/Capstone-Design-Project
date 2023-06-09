@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
 import '../add/add_screen.dart';
+import '../bot_screen/bot_content.dart';
 
 PersistentTabController _controller = PersistentTabController(initialIndex: 0);
 
@@ -60,7 +61,7 @@ List<Widget> _buildScreens() {
     HomeContent(),
     ProfileScreen(),
     //AddScreen(),
-    SettingsScreen(),
+    BotContent(),
     SettingsScreen()
   ];
 }
@@ -89,7 +90,7 @@ List<PersistentBottomNavBarItem> _navBarsItems() {
     // ),
     PersistentBottomNavBarItem(
       icon: Icon(CupertinoIcons.heart),
-      title: ("Healing"),
+      title: ("Chatting"),
       activeColorPrimary: CupertinoColors.activeBlue,
       inactiveColorPrimary: CupertinoColors.systemGrey,
     ),

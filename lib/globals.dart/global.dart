@@ -14,13 +14,15 @@ late User user;
 const primaryColor = Color.fromARGB(244, 85, 244, 146);
 
 final emotionColors = {
-  'sadness': const Color(0xFFA9DEF9),
-  'joy': Color.fromARGB(241, 237, 208, 17),
+  'sadness': Color(0xFFA9DEF9),
+  'joy': Colors.yellow,
   'love': Color(0xFFFF99C8),
-  'anger': Color(0xFFF08080),
+  'angry': Color(0xFFF08080),
   'fear': Color(0xFFD0F4DE),
   'surprise': Color(0xFFE4C1F9)
 };
+
+List<Color> ColorsList2 = [Color(0xFFFF99C8), Color(0xFFA9DEF9),Colors.yellow, Color(0xFFD0F4DE), Color(0xFFE4C1F9),  ];
 
 const List<String> sadnessSongsList = [
   'Alec Benjamin - If We Have Each Other',

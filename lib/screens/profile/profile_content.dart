@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:intl/intl.dart';
+import 'package:pie_chart/pie_chart.dart';
 import '../../globals.dart/global.dart';
 
 class ProfileContent extends StatefulWidget {
@@ -45,6 +46,29 @@ class _ProfileContentState extends State<ProfileContent> {
       return {'domain': emotion, 'measure': count};
     }).toList();
 
+    final pieChartDataTest = [
+      {
+        'id': 'Bar',
+        'data': [
+          {'domain': 'love', 'measure': 1},
+          {'domain': 'sadness', 'measure': 2},
+          {'domain': 'fear', 'measure': 5},
+          {'domain': 'joy', 'measure': 2},
+          {'domain': 'surprise', 'measure': 1},
+          {'domain': 'anger', 'measure': 1}
+        ],
+      },
+    ];
+
+    // Map<String, double> dataMap = {
+    //   "love": 1,
+    //   "sadness": 3,
+    //   "joy": 2,
+    //   "fear": 5,
+    //   "surprise": 2,
+    //   "angry": 1,
+    // };
+
     return Scaffold(
         backgroundColor: backgroundColor,
         body: Container(
@@ -79,6 +103,35 @@ class _ProfileContentState extends State<ProfileContent> {
                         Text(_dateRange,
                             style: TextStyle(
                                 fontSize: 14, fontWeight: FontWeight.bold)),
+                        // Expanded(
+                        //     child: PieChart(
+                        //   dataMap: dataMap,
+                        //   animationDuration: Duration(milliseconds: 800),
+                        //   chartLegendSpacing: 32,
+                        //   chartRadius: MediaQuery.of(context).size.width / 3.2,
+                        //   colorList: colorList,
+                        //   initialAngleInDegree: 0,
+                        //   chartType: ChartType.ring,
+                        //   ringStrokeWidth: 32,
+                        //   centerText: "HYBRID",
+                        //   legendOptions: LegendOptions(
+                        //     showLegendsInRow: false,
+                        //     legendPosition: LegendPosition.right,
+                        //     showLegends: true,
+                        //     legendTextStyle: TextStyle(
+                        //       fontWeight: FontWeight.bold,
+                        //     ),
+                        //   ),
+                        //   chartValuesOptions: ChartValuesOptions(
+                        //     showChartValueBackground: true,
+                        //     showChartValues: true,
+                        //     showChartValuesInPercentage: false,
+                        //     showChartValuesOutside: false,
+                        //     decimalPlaces: 1,
+                        //   ),
+                        //   // gradientList: ---To add gradient colors---
+                        //   // emptyColorGradient: ---Empty Color gradient---
+                        // ))
                         Expanded(
                             child: DChartPie(
                           data: pieChartData,
