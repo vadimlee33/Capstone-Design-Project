@@ -57,13 +57,7 @@ class HomeScreen extends StatelessWidget {
 }
 
 List<Widget> _buildScreens() {
-  return const [
-    HomeContent(),
-    ProfileScreen(),
-    //AddScreen(),
-    BotContent(),
-    SettingsScreen()
-  ];
+  return const [HomeContent(), ProfileScreen(), BotContent(), SettingsScreen()];
 }
 
 List<PersistentBottomNavBarItem> _navBarsItems() {
@@ -80,14 +74,6 @@ List<PersistentBottomNavBarItem> _navBarsItems() {
       activeColorPrimary: CupertinoColors.activeGreen,
       inactiveColorPrimary: CupertinoColors.systemGrey,
     ),
-    // PersistentBottomNavBarItem(
-    //   icon: Icon(
-    //     CupertinoIcons.add,
-    //   ),
-    //   title: ("Add"),
-    //   activeColorPrimary: CupertinoColors.activeGreen,
-    //   inactiveColorPrimary: CupertinoColors.systemGrey,
-    // ),
     PersistentBottomNavBarItem(
       icon: Icon(CupertinoIcons.heart),
       title: ("Chatting"),

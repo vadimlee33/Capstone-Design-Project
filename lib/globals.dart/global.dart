@@ -22,7 +22,6 @@ final emotionColors = {
   'surprise': Color(0xFFE4C1F9)
 };
 
-
 const List<String> sadnessSongsList = [
   'Alec Benjamin - If We Have Each Other',
   'Duncan Laurence - Arcade',
