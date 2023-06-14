@@ -31,7 +31,7 @@ class _BotContentState extends State<BotContent> {
 
   Widget build(BuildContext context) {
     return Scaffold(
-        resizeToAvoidBottomInset: true,
+        resizeToAvoidBottomInset: false,
         backgroundColor: backgroundColor,
         body: Container(
             decoration: BoxDecoration(
